@@ -9,7 +9,7 @@ This is all for educational purposes only and I don't mean to cause any security
 
 Let's get straight to it. One thing found in the manifest is a list of blocked apps on the device. Below are just a few of them but should give a general idea. Personally, I don’t think that this is a necessarily good idea to do as it contributes to the concept of “security through obscurity”. A lot of the listed apps such as a popular file manager named MT Manager are blocked for no obvious reason. My assumption is that it’s blocked due to MT Manager having features like APK-Signature bypassing however, that’s not a valid reason the completely block it.
 
-This approach of checking if an app is installed is definitely smart as it does not require the QUERY_ALL__PACKAGES permission which seems to be blocked by the google play store.
+This approach of checking if an app is installed is definitely smart as it does not require the QUERY_ALL_PACKAGES permission which seems to be blocked by the google play store.
 
 ```xml
 <package android:name="app.greyshirts.sslcapture"/>
