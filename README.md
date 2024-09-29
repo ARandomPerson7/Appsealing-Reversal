@@ -315,11 +315,9 @@ DobbyHook((void *) kill, (void *) kill_hook, (void **) &orig_kill_hook);
 That was easy, wasn’t it? We didn’t even have to dig into the detection code to bypass it.
 
 ## Conclusion
-
 In summary, the AppSealing solution its strengths and weaknesses, however, personally I’d say that there are a lot more weaknesses than strengths. It is clear that while the system has implemented some smart strategies to prevent removal through encrypting other native libraries. However like already mentioned, the weaknesses are bigger than the strengths, for instance, the lack of string encryption and the nature of weak detection methods. Also questionable practice of sending extensive device information to their servers don’t make this solution more secure. 
 
 I also provide a potential bypass methods for the security measures implemented, the bypass is purely for educational purposes only and is not meant to cause any trouble with apps. I encourage the developers to take following actions:
-
 - Proper native library protections through ObfuscatorLLVM, don’t just obfuscate parts.
 - String Encryption
 - Java sided Obfuscation
@@ -330,10 +328,28 @@ I also provide a potential bypass methods for the security measures implemented,
 While the Appsealing system is branded as a top-tier app shielding solution, this research suggests that huge improvements can be made to enhance it’s security.
 I have already contacted the developers about these issues but until this day have not received any response which provides even more proof how much the developers actually care about security.
 
+## Update
+Recently, AppSealing has updated their solution to 2.33.0.0 which added system calls to force kill the app. This however is still very inefficient due to the lack of code obfuscation/protection. Below you can see the code for that (highly simplified):
+```cpp
+// old exit
+signal(14, 0LL);
+alarm(1u);
+
+// new exit
+int v11 = getpid();
+linux_eabi_syscall(__NR_kill, v11, 9);
+linux_eabi_syscall(__NR_exit, 0);
+```
+Due to legal reasons, I will not provide a bypass for this. However, with a bit of knowledge about android application hacking you will be able to figure out how to do it.
+Hint: You can scan the library for svc instructions and either manually NOP the system calls or find a way to automate this.
+### Solution for the developers
+I'm feeling nice today so if any of the AppSealing developers are reading this, here are some suggestions to solve this problem
+- Better code obfuscation, using a LLVM Obfuscator will make it significantly more difficult to find these system calls manually.
+- (Not perfect solution) Crash the app if it did not exit after x time.
+- Packing the native library will make more difficult to manually patch out the system calls
+These are obviously only short term solutions given that the overall security of AppSealing isn't exactly good.
+
 ## Finally
-
 If you have any questions you can contact me via email or discord
-
 Discord: @arandomperson9815
-
 Email: [randomperson076@protonmail.com](mailto:randomperson076@protonmail.com)
