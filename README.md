@@ -341,15 +341,19 @@ linux_eabi_syscall(__NR_kill, v11, 9);
 linux_eabi_syscall(__NR_exit, 0);
 ```
 Due to legal reasons, I will not provide a bypass for this. However, with a bit of knowledge about android application hacking you will be able to figure out how to do it.
+
 Hint: You can scan the library for svc instructions and either manually NOP the system calls or find a way to automate this.
 ### Solution for the developers
 I'm feeling nice today so if any of the AppSealing developers are reading this, here are some suggestions to solve this problem
 - Better code obfuscation, using a LLVM Obfuscator will make it significantly more difficult to find these system calls manually.
 - (Not perfect solution) Crash the app if it did not exit after x time.
 - Packing the native library will make more difficult to manually patch out the system calls
+
 These are obviously only short term solutions given that the overall security of AppSealing isn't exactly good.
 
 ## Finally
 If you have any questions you can contact me via email or discord
+
 Discord: @arandomperson9815
+
 Email: [randomperson076@protonmail.com](mailto:randomperson076@protonmail.com)
